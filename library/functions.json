@@ -66,9 +66,11 @@
 		},
 		"Text": {
 			"parameters": {
-				"text": "Text string to display",
 				"x": "X-coordinate",
 				"y": "Y-coordinate",
+				"text": "Text string to display",
+				"font": "font",
+				"size": "size",
 				"colour": "Text colour in HTML form"
 			},
 			"return": "Text object",
@@ -80,7 +82,8 @@
 				"y1": "Y-coordinate for start",
 				"x2": "X-coordinate for end",
 				"y2": "Y-coordinate for end",
-				"colour": "Colour of the line in HTML form"
+				"colour": "Colour of the line in HTML form",
+				"strokewidth": "The width of the stroke"
 			},
 			"return": "Line object",
 			"description": "Creates a line element for display on the canvas"
@@ -89,9 +92,11 @@
 			"parameters": {
 				"x1": "X-coordinate for top left",
 				"y1": "Y-coordinate for top left",
-				"x2": "X-coordinate for bottom right",
-				"y2": "Y-coordinate for bottom right",
-				"outlinecolour": "Colour of the rectangle (stroke) in HTML form"
+				"rx": "X-coordinate for rounding corners",
+				"ry": "Y-coordinate for rounding corners",
+				"width": "width of rectangle",
+				"height": "height of rectangle",
+				"style": "style tag for rectangle"
 			},
 			"return": "Rectangle object",
 			"description": "Creates a rectangle element for display on the canvas"
@@ -138,6 +143,55 @@
 			},
 			"return": "Div object",
 			"description": "Creates a html element for display on the canvas"
+		},
+		"Path": {
+			"parameters": {
+				"name": "currently unused",
+				"x": "X-coordinate",
+				"y": "Y-coordinate",
+				"width": "Width in pixels",
+				"height": "Height in pixels",
+				"html": "HTML content",
+				"[style]" : "An optional CSS style string"
+			},
+			"return": "Path object",
+			"description": "Creates a path element for display on the canvas"
+		},
+		"Arc": {
+			"parameters": {
+				"x1": "X-coordinate start",
+				"y1": "Y-coordinate start",
+				"x2": "X-coordinate end",
+				"y2": "Y-coordinate end",
+				"rotation": "rotation about x-axis",
+				"largearc": "large arc flag",
+				"clockwise": "clockwise arc flag",
+				"[style]" : "An optional CSS style string"
+			},
+			"return": "Arc object",
+			"description": "Creates an arc element for display on the canvas"
+		},
+		"Bezier": {
+			"parameters": {
+				"x": "X-coordinate start",
+				"y": "Y-coordinate start",
+				"btype": "Quadratic (q) or Cubic (c)",
+				"control points": "x1 y1 x2 y2...",
+				"style": "style parameters",
+			},
+			"return": "Bezier object",
+			"description": "Creates an Bezier element for display on the canvas"
+		},
+		"Layer": {
+			"parameters": {
+				"name": "name of shape",
+				"x": "X-Coordinate",
+				"y": "Y-Coordinate",
+				"elements": "list of elements",
+				"style": "style parameters",
+			},
+			"return": "Layer object",
+			"description": "Creates an Layer for display on the canvas for grouping elements"
 		},
 		"Image": {
 			"parameters": {

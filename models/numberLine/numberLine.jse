@@ -6,45 +6,45 @@ timeLimit = 60;
 tick = -1;
 timerRunning = false;
 
-takeALook is Text("Take a look at this number line...", 50, 90, "black");
+takeALook is Text(50,90,"Take a look at this number line...","Verdana",20,"black");
 
 leftMargin = 50;
 timeLineTop = 140;
 timeLineFinishLoc = 530;
 
 /* Draw the numberline */
-timeLine is Line(leftMargin, timeLineTop, timeLineFinishLoc, timeLineTop, "black");
-dashm6 is Line(leftMargin, timeLineTop+10, leftMargin, timeLineTop, "black");
-dashm5 is Line(leftMargin+40, timeLineTop+10, leftMargin+40, timeLineTop, "black");
-dashm4 is Line(leftMargin+80, timeLineTop+10, leftMargin+80, timeLineTop, "black");
-dashm3 is Line(leftMargin+120, timeLineTop+10, leftMargin+120, timeLineTop, "black");
-dashm2 is Line(leftMargin+160, timeLineTop+10, leftMargin+160, timeLineTop, "black");
-dashm1 is Line(leftMargin+200, timeLineTop+10, leftMargin+200, timeLineTop, "black");
-dash0 is Line(leftMargin+240, timeLineTop+10, leftMargin+240, timeLineTop, "black");
-dash1 is Line(leftMargin+280, timeLineTop+10, leftMargin+280, timeLineTop, "black");
-dash2 is Line(leftMargin+320, timeLineTop+10, leftMargin+320, timeLineTop, "black");
-dash3 is Line(leftMargin+360, timeLineTop+10, leftMargin+360, timeLineTop, "black");
-dash4 is Line(leftMargin+400, timeLineTop+10, leftMargin+400, timeLineTop, "black");
-dash5 is Line(leftMargin+440, timeLineTop+10, leftMargin+440, timeLineTop, "black");
-dash6 is Line(leftMargin+480, timeLineTop+10, leftMargin+480, timeLineTop, "black");
+timeLine is Line(leftMargin, timeLineTop, timeLineFinishLoc, timeLineTop, "black",10);
+dashm6 is Line(leftMargin, timeLineTop+10, leftMargin, timeLineTop, "black",10);
+dashm5 is Line(leftMargin+40, timeLineTop+10, leftMargin+40, timeLineTop, "black",10);
+dashm4 is Line(leftMargin+80, timeLineTop+10, leftMargin+80, timeLineTop, "black",10);
+dashm3 is Line(leftMargin+120, timeLineTop+10, leftMargin+120, timeLineTop, "black",10);
+dashm2 is Line(leftMargin+160, timeLineTop+10, leftMargin+160, timeLineTop, "black",10);
+dashm1 is Line(leftMargin+200, timeLineTop+10, leftMargin+200, timeLineTop, "black",10);
+dash0 is Line(leftMargin+240, timeLineTop+10, leftMargin+240, timeLineTop, "black",10);
+dash1 is Line(leftMargin+280, timeLineTop+10, leftMargin+280, timeLineTop, "black",10);
+dash2 is Line(leftMargin+320, timeLineTop+10, leftMargin+320, timeLineTop, "black",10);
+dash3 is Line(leftMargin+360, timeLineTop+10, leftMargin+360, timeLineTop, "black",10);
+dash4 is Line(leftMargin+400, timeLineTop+10, leftMargin+400, timeLineTop, "black",10);
+dash5 is Line(leftMargin+440, timeLineTop+10, leftMargin+440, timeLineTop, "black",10);
+dash6 is Line(leftMargin+480, timeLineTop+10, leftMargin+480, timeLineTop, "black",10);
 
 /* Add labels to the line */
-textm6 is Text("-6", 43, timeLineTop+30);
-textm5 is Text("-5", 83, timeLineTop+30);
-textm4 is Text("-4", 123, timeLineTop+30);
-textm3 is Text("-3", 164, timeLineTop+30);
-textm2 is Text("-2", 204, timeLineTop+30);
-textm1 is Text("-1", 244, timeLineTop+30);
-text0 is Text("0", 286, timeLineTop+30);
-text1 is Text("1", 326, timeLineTop+30);
-text2 is Text("2", 366, timeLineTop+30);
-text3 is Text("3", 406, timeLineTop+30);
-text4 is Text("4", 448, timeLineTop+30);
-text5 is Text("5", 488, timeLineTop+30);
-text6 is Text("6", 528, timeLineTop+30);
+textm6 is Text(43, timeLineTop+30, "-6","Verdana",20,"black");
+textm5 is Text(83, timeLineTop+30,"-5","Verdana",20,"black");
+textm4 is Text(123, timeLineTop+30,"-4","Verdana",20,"black");
+textm3 is Text(164, timeLineTop+30,"-3","Verdana",20,"black");
+textm2 is Text(204, timeLineTop+30,"-2","Verdana",20,"black");
+textm1 is Text(244, timeLineTop+30,"-1","Verdana",20,"black");
+text0 is Text(286, timeLineTop+30,"0","Verdana",20,"black");
+text1 is Text(326, timeLineTop+30,"1","Verdana",20,"black");
+text2 is Text(366, timeLineTop+30,"2","Verdana",20,"black");
+text3 is Text(406, timeLineTop+30,"3","Verdana",20,"black");
+text4 is Text(448, timeLineTop+30,"4","Verdana",20,"black");
+text5 is Text(488, timeLineTop+30,"5","Verdana",20,"black");
+text6 is Text(528, timeLineTop+30,"6","Verdana",20,"black");
 
-whatIs is Text("What is the inequality?", leftMargin, 220);
-xText is Text("X", leftMargin, 250);
+whatIs is Text(leftMargin, 220,"What is the inequality?","Verdana",20,"black");
+xText is Text(leftMargin, 250,"X","Verdana",20,"black");
 
 inequalitySignOptions is ["[sign]","<","<=",">",">="];
 inequalitySignCombo is Combobox("inequalityCombo", inequalitySignOptions, leftMargin+30, 245,true);
@@ -54,12 +54,12 @@ submitAnswerButton is Button("submitAnswerButton", "Submit", leftMargin+10, 280,
 submitAnswerButton_clicked is false;
 submitted = false;
 
-yourAnswerIs is Text("Your answer is: ", leftMargin, 320); 
+yourAnswerIs is Text(leftMargin, 320, "Your answer is: ","Verdana",20,"black"); 
 answerValue is "";
 yourScore = 0;
 oldScore = 0;
-yourScoreIs is Text("Your score is: ", leftMargin, 340);
-yourScoreIsValue is Text(yourScore, leftMargin+85, 340);
+yourScoreIs is Text(leftMargin, 340,"Your score is: ","Verdana",20,"black");
+yourScoreIsValue is Text(leftMargin+85,340,yourScore,"Verdana",20,"black");
 
 
 /* Generate new question parameters (number, whether it is positive and which inequality numberLineSignIndex to use)*/
@@ -77,7 +77,7 @@ circBg is "blue";
 circBg is ((numberLineSignIndex==2 || numberLineSignIndex==4))? "white" : "blue";
 lineDirection is (numberLineSignIndex > 3)? timeLineFinishLoc : leftMargin;
 
-lineArrow is Line(circX, timeLineTop-20, lineDirection, timeLineTop-20, "blue");
+lineArrow is Line(circX, timeLineTop-20, lineDirection, timeLineTop-20, "blue",10);
 circle is Circle(circX, timeLineTop-20, 10, circBg, "blue");
 
 numberLineSign is inequalitySignOptions[numberLineSignIndex];
@@ -88,7 +88,7 @@ oldScore = yourScore;
 
 answerValue is (oldAnswerCorrect && submitted)? "Correct! :)" : "Wrong!";
 displayAnswerValue is (submitted)? answerValue : "";
-answerCorrect is Text(displayAnswerValue, leftMargin+85, 320); 
+answerCorrect is Text(leftMargin+85,320, displayAnswerValue,"Verdana",20,"black"); 
 
 proc timer {
     after (1000) {

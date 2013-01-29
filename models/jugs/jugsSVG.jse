@@ -6,9 +6,9 @@ autocalc = 0;
 
 func max { return $1<$2 ? $2 : $1; };
 
-target=1;
-capA = 5;
-capB = 7;
+target=4;
+capA = 3;
+capB = 5;
 Afull is capA==contentA;
 Bfull is capB==contentB;
 contentA = 0;

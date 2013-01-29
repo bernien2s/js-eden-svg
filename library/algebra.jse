@@ -1,3 +1,161 @@
+/**
+ * scaleSVG function scales observable according to scale on x and y axis
+ *
+ * @param obsid, name of observable to be scaled
+ * @param sx, scale factor by x
+ * @param sy, scale factor by y
+ */
+
+func scaleSVG {
+	para obsid, sx, sy;
+	
+	${{
+		//argument definitions
+		var obsid = arguments[0];
+		var sx = arguments[1];
+		var sy = arguments[2];
+		var el = document.getElementById(obsid);
+		
+		//apply transformation attribute
+		el.setAttribute("transform", "scale("+sx+","+sy+")");
+	}}$;
+	
+	return true;
+	
+}
+
+/**
+ * rotateSVG function rotates observable according to a certain degree and origin
+ *
+ * @param obsid, name of observable to be rotated
+ * @param angle, degrees of rotation
+ * @param sx, x coord of rotation point
+ * @param sy, y coord of rotation point
+ */
+
+
+func rotateSVG {
+
+	para obsid, angle, sx, sy;
+
+	${{
+		var obsid = arguments[0];
+		var angle = arguments[1];
+		var sx = arguments[2];
+		var sy = arguments[3];
+		var el = document.getElementById(obsid);
+		
+		//check if origin specified
+		if (sx=="" && sy=="") {
+			//apply transformation attribute
+			el.setAttribute("transform", "rotate("+angle+")");
+		} else {
+			//apply transformation attribute about arbitrary
+			el.setAttribute("transform", "rotate("+angle+","+sx+","+sy+")");
+		}
+		
+	}}$;
+	
+}
+
+/**
+ * translateSVG function translates observable according to x and y.
+ *
+ * @param obsid, name of observable to be translated
+ * @param x, x coord of translation
+ * @param y, y coord of translation
+ */
+
+func translateSVG{
+	para obsid, x, y;
+
+	${{
+		var obsid = arguments[0];
+		var sx = arguments[1];
+		var sy = arguments[2];
+		var el = document.getElementById(obsid);
+		
+		//apply transformation attribute
+		el.setAttribute("transform", "translate("+sx+","+sy+")");
+		//do root.lookup to change values for observable
+		root.lookup('obsid').assign(sx,sy);
+	}}$;
+	
+	return [sx,sy];
+}
+
+/**
+ * skewXSVG function skews observable according to x-axis and an angle
+ *
+ * @param obsid, name of observable to be skewed
+ * @param angle, degree to skew by
+ */
+
+func skewXSVG {
+	para obsid, angle;
+	
+	${{
+		var obsid = arguments[0];
+		var angle = arguments[1];
+		var el = document.getElementById(obsid);
+		
+		//apply transformation attribute
+		el.setAttribute("transform", "skewX("+angle+")");
+	}}$;
+	return 0;
+}
+
+/**
+ * skewYSVG function skews observable according to y-axis and an angle
+ *
+ * @param obsid, name of observable to be rotated
+ * @param angle, degree to skew by
+ */
+
+func skewYSVG {
+	para obsid, angle;
+	
+	${{
+		var obsid = arguments[0];
+		var angle = arguments[1];
+		var el = document.getElementById(obsid);
+		
+		//apply transformation attribute
+		el.setAttribute("transform", "skewY("+angle+")");
+	}}$;
+	return 0;
+}
+
+/**
+ * matrixSVG function applies transformation matrix to the observable
+ *
+ * @param obsid, name of observable to be rotated
+ * @param translationMatrixPoints, points on the translation matrix
+ *
+ *	[ a b c
+ *	  d e f
+ *	  0 0 0 ]
+ */
+
+func matrixSVG{
+	para obsid, a, b, c, d, e, f;
+	
+	${{
+		var obsid = arguments[0];
+		var a = arguments[1];
+		var b = arguments[2];
+		var c = arguments[3];
+		var d = arguments[4];
+		var e = arguments[5];
+		var f = arguments[6];
+		var el = document.getElementById(obsid);
+		
+		//apply transformation attribute
+		el.setAttribute("transform", "matrix("+a+","+b+","+c+","+d+","+e+","+f+")");
+	}}$;
+	return 0;
+}
+
 func centre {
   para points;
   auto i, x, y;

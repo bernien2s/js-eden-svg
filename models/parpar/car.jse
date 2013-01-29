@@ -11,9 +11,9 @@ rlcorner is [car[5],car[6]];
 rrcorner is [car[7],car[8]];
 
 ## Draw car
-faxle is Line(flcorner[1],flcorner[2],frcorner[1],frcorner[2],"black");
-raxle is Line(rlcorner[1],rlcorner[2],rrcorner[1],rrcorner[2],"black");
-centrerod is Line((flcorner[1]+frcorner[1])/2,(flcorner[2]+frcorner[2])/2,(rlcorner[1]+rrcorner[1])/2,(rlcorner[2]+rrcorner[2])/2,"black");
+faxle is Line(flcorner[1],flcorner[2],frcorner[1],frcorner[2],"black",10);
+raxle is Line(rlcorner[1],rlcorner[2],rrcorner[1],rrcorner[2],"black",10);
+centrerod is Line((flcorner[1]+frcorner[1])/2,(flcorner[2]+frcorner[2])/2,(rlcorner[1]+rrcorner[1])/2,(rlcorner[2]+rrcorner[2])/2,"black",10);
 
 ## Length of the rear axle
 raxlelength is sqrt(pow(rrcorner[2]-rlcorner[2],2) + pow(rrcorner[1]-rlcorner[1],2));
@@ -34,12 +34,12 @@ srodlength is tlength;
 ackangle = atan(((frcorner[1]-flcorner[1])/2)/wheelbase);
 tierodlength is sqrt(pow(frcorner[1]-flcorner[1],2) + pow(frcorner[2]-flcorner[2],2)) - 2*srodlength*sin(ackangle);
 
-lrodpoint is rotate([srodlength*sin(ackangle-steeringangle)+flcorner[1],srodlength*cos(ackangle-steeringangle)+flcorner[2]],flcorner,carangle);
-rrodpoint is rotate([frcorner[1]-srodlength*sin(ackangle+steeringangle),frcorner[2]+srodlength*cos(ackangle+steeringangle)],frcorner,carangle);
+lrodpoint is rotateSVG(lrodpoint, carangle, srodlength*sin(ackangle-steeringangle)+flcorner[1],srodlength*cos(ackangle-steeringangle)+flcorner[2]);
+rrodpoint is rotateSVG(rrodpoint, carangle, frcorner[1]-srodlength*sin(ackangle+steeringangle),frcorner[2]+srodlength*cos(ackangle+steeringangle));
 
-tierod is Line(lrodpoint[1],lrodpoint[2],rrodpoint[1],rrodpoint[2],"blue");
-rrod is Line(flcorner[1],flcorner[2],lrodpoint[1],lrodpoint[2],"blue");
-lrod is Line(frcorner[1],frcorner[2],rrodpoint[1],rrodpoint[2],"blue");
+tierod is Line(lrodpoint[1],lrodpoint[2],rrodpoint[1],rrodpoint[2],"blue",10);
+rrod is Line(flcorner[1],flcorner[2],lrodpoint[1],lrodpoint[2],"blue",10);
+lrod is Line(frcorner[1],frcorner[2],rrodpoint[1],rrodpoint[2],"blue",10);
 
 ## Angle of the car for tierods
 carangle is -atan2((rlcorner[1]-flcorner[1]),(rlcorner[2]-flcorner[2]));
@@ -50,10 +50,10 @@ frwheelpoints = [frcorner[1],frcorner[2]-tlength,frcorner[1]+twidth,frcorner[2]-
 rrwheelpoints = [rrcorner[1],rrcorner[2]-tlength,rrcorner[1]+twidth,rrcorner[2]-tlength,rrcorner[1]+twidth,rrcorner[2]+tlength,rrcorner[1],rrcorner[2]+tlength];
 rlwheelpoints = [rlcorner[1]-twidth,rlcorner[2]-tlength,rlcorner[1],rlcorner[2]-tlength,rlcorner[1],rlcorner[2]+tlength,rlcorner[1]-twidth,rlcorner[2]+tlength];
 
-flwheel is Polygon(flwheelpoints,"black");
-frwheel is Polygon(frwheelpoints,"black");
-rrwheel is Polygon(rrwheelpoints,"black");
-rlwheel is Polygon(rlwheelpoints,"black");
+flwheel is Polygon(0,0,flwheelpoints,"fill:black");
+frwheel is Polygon(0,0,frwheelpoints,"fill:black");
+rrwheel is Polygon(0,0,rrwheelpoints,"fill:black");
+rlwheel is Polygon(0,0,rlwheelpoints,"fill:black");
 
 func calcSteering {
   para rodpoint, corner;

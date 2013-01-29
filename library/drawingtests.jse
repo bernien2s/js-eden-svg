@@ -1,0 +1,51 @@
+##Path
+
+${{
+Path = function (name, start, end, lineorcurve, fill, stroke, style) {
+	this.name = name;
+	this.start = start;
+	this.end = end;
+	this.lineorcurve = lineorcurve;
+	this.fill = fill;
+	this.stroke = stroke;
+	this.style = style;
+	this.enabled = enabled;
+}
+}}$;
+
+func Path {${{
+  var name = arguments[0];
+  var start = arguments[1];
+  var end = arguments[2];
+  var lineorcurve = arguments[3];
+  var fill = arguments[4];
+  var stroke = arguments[5];
+  var style = arguments[6];
+  return new Path(name, start, end, lineorcurve, fill, stroke, style);
+}}$; }
+
+${{
+Path.prototype.draw = function(context) {
+//insert svg element into the environment
+var contentarea = document.getElementById("eden-content");
+var mySvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+mySvg.setAttribute("version", "1.2");
+mySvg.setAttribute("baseProfile", "tiny");
+contentarea.appendChild(mySvg);
+
+var c1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+c1.setAttribute("cx", "100");
+c1.setAttribute("cy", "100");
+c1.setAttribute("r", "60");
+c1.setAttribute("fill", "#336699");
+mySvg.appendChild(c1);
+
+//perform lookup of start/end observables (fixed vals for now
+
+};
+}}$;
+${{
+Path.prototype.toString = function() {
+  return "Path(" + this.name + ", " + this.start + ", " + this.end + ", "+this.lineorcurve+", "+this.fill+", "+this.stroke+", "+this.style+")";
+};
+}}$;

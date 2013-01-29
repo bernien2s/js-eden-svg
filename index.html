@@ -9,7 +9,10 @@
 
 
 	<script type="text/javascript" src="js/lib/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/lib/underscore-min.js"></script>
 	<script type="text/javascript" src="js/lib/jquery-ui-1.8.12.min.js"></script>
+	<script type="text/javascript" src="js/lib/codemirror/codemirror.js"></script>
+	<script type="text/javascript" src="js/lib/codemirror/mode/javascript/javascript.js"></script>
 
 </head>
 <body>
@@ -37,11 +40,13 @@
 <div id="tabs">
 <ul>
 	<li><a href="home.html">Documentation</a></li>
-	<li><a href="#eden-content">Canvas</a></li>
+	<li><a href="#eden-content">SVGCanvas</a></li>
 	<li><a href="#html-content">Model Readme</a></li>
 	<li><a href="#history-content">History</a></li>
 </ul>
 <div id="eden-content">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="svgcanvas" width="100%" height="100%" currentScale="1">
+</svg>
 <canvas id="d1canvas" width="100%" height="100%"></canvas>
 </div>
 <div id="html-content"></div>
@@ -117,10 +122,87 @@
 <div id="functions-info-point"></div>
 </div>
 
+<div id="dialog" title="Styles and Filters">
+  <p>Add style attributes and filters</p>
+  <small>Clipping</small>
+  <select name="styleclipping">
+    <option>clip-path</option> 
+    <option>clip-rule</option>
+    <option>mask</option>
+    <option>opacity</option>
+    <option>cursor</option>
+    <option>visibility</option>
+    
+  </select>
+  <small><a href="#" id="styleclipping");">Add</a></small>
+      <br />
+<small>Filters</small>
+  <select name="stylefilters">
+    <option>enable-background</option> 
+    <option>filter</option>
+    <option>flood-color</option>
+    <option>flood-opacity</option>
+    <option>lighting-color</option>
+  </select>
+  
+  <small><a href="#" id="stylefilters">Add</a></small>  <br /><small>Gradients</small>
+  <select name="stylegradients">
+    <option>stop-color</option> 
+    <option>stop-opacity</option>
+  </select>
+ 
+  <small><a href="#" id="stylegradients">Add</a></small>  <br /> <small>Color/Painting</small>
+  <select name="stylecolor">
+    <option>color-interpolation</option> 
+    <option>color-interpolation-filters</option>
+    <option>color-profile</option>
+    <option>color-rendering</option>
+    <option>fill</option>
+    <option>fill-opacity</option> 
+    <option>fill-rule</option>
+    <option>image-rendering</option>
+    <option>marker</option>
+    <option>marker-end</option>
+    <option>marker-mid</option> 
+    <option>marker-start</option>
+    <option>shape-rendering</option>
+    <option>stroke</option>
+    <option>stroke-dasharray</option>
+    <option>stroke-dashoffset</option>
+    <option>stroke-linecap</option>
+    <option>stroke-linejoin</option> 
+    <option>stroke-miterlimit</option>
+    <option>stroke-opacity</option>
+    <option>stroke-width</option>
+    <option>text-rendering</option>
+  </select>
+  <small><a href="#" id="stylecolor">Add</a></small>
+  
+</small>  <br /> <small>Text</small>
+  <select name="styletext">
+    <option>font</option> 
+    <option>font-family</option>
+    <option>font-size</option>
+    <option>font-style</option>
+    <option>font-variant</option>    
+    <option>font-weight</option>
+    <option>alignment-baseline</option> 
+    <option>baseline-shift</option>
+    <option>dominant-baseline</option>
+    <option>glyph-orientation-horizontal</option>
+    <option>glyph-orientation-vertical</option>
+    <option>kerning</option>
+    <option>text-anchor</option>
+    <option>writing-mode</option>
+  </select>
+  <small><a href="#" id="styletext">Add</a></small>
+</div>
+
 <script src="js/jseden.rb" type="text/javascript"></script>
 
 <script type="text/javascript">
 	js_eden_init();
+
 </script>
 
 </body>

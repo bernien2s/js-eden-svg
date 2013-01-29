@@ -1,0 +1,279 @@
+func renderLight {
+	para lightName, obsName, lightType, lightColour, x, y, z;
+	
+	${{
+		var lightName = arguments[0];
+		var obsName = arguments[1];
+		var lightType = arguments[2];
+		var lightColour = arguments[3];
+		var x = arguments[4];
+		var y = arguments[5];
+		var z = arguments[6];	
+		
+		var canvas = document.getElementById("svgcanvas");
+		var obs = canvas.getElementById(obsName);
+		
+		if (!canvas.getElementById(lightName+"f")) {
+		
+			var f1 = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+			var b1 = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+			var o1 = document.createElementNS("http://www.w3.org/2000/svg", "feSpecularLighting");
+			var i1 = document.createElementNS("http://www.w3.org/2000/svg", "feComposite");
+
+			if (lightType=="point") {
+				var l1 = document.createElementNS("http://www.w3.org/2000/svg", "fePointLight");
+			} else if (lightType=="distant") {
+				var l1 = document.createElementNS("http://www.w3.org/2000/svg", "feDistantLight");
+			} else if (lightType=="spot") {
+				var l1 = document.createElementNS("http://www.w3.org/2000/svg", "feSpotLight");
+			}
+
+		} else {
+		
+			var f1 = canvas.getElementById(lightName+"f");
+			var b1 = f1.childNodes[0];
+			var o1 = f1.childNodes[1];
+			var l1 = o1.childNodes[0];
+			var i1 = f1.childNodes[2];
+		
+		}
+
+		//filter definition
+		f1.setAttribute("id", lightName+"f");
+
+		//gaussian blur definition
+		b1.setAttribute("in", "SourceAlpha");
+		b1.setAttribute("stdDeviation", 4);
+		b1.setAttribute("result", "blur1");
+		
+		//specular lighting definition
+		o1.setAttribute("result","specOut");
+		o1.setAttribute("in", "blur1");
+		o1.setAttribute("specularExponent", 20);
+		o1.setAttribute("lighting-color", lightColour);
+		
+		//lighting definition
+		l1.setAttribute("x", x);
+		l1.setAttribute("y", y);
+		l1.setAttribute("z", z);
+		
+		//composite definition
+		i1.setAttribute("in","SourceGraphic");
+		i1.setAttribute("in2", "specOut");
+		i1.setAttribute("operator","arithmetic");
+		i1.setAttribute("k1",0);
+		i1.setAttribute("k2",1);
+		i1.setAttribute("k3",1);
+		i1.setAttribute("k4",0);
+		
+		//set filter reference for observable
+		obs.setAttribute("filter","url(#"+lightName+"f)");
+			
+		if (!canvas.getElementById(lightName+"f")) {
+			o1.appendChild(l1);
+			f1.appendChild(b1);
+			f1.appendChild(o1);
+			f1.appendChild(i1);
+			canvas.appendChild(f1);
+		}
+			
+	}}$;
+
+}
+
+func renderBlur {
+	para filterName, obsName, blurAmount, x, y;
+
+	${{
+		var filterName = arguments[0];
+		var obsName = arguments[1];
+		var blurAmount = arguments[2];
+		var x = arguments[3];
+		var y = arguments[4];
+		
+		var canvas = document.getElementById("svgcanvas");
+		var obs = canvas.getElementById(obsName);
+		
+		if (!canvas.getElementById(filterName+"d")) {
+		
+			var d1 = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+			var f1 = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+			var b1 = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+		
+		} else {
+		
+			var d1 = canvas.getElementById(filterName+"d");
+			var f1 = d1.childNodes[0];
+			var b1 = f1.childNodes[0];
+		
+		}
+
+		//defs id
+		d1.setAttribute("id", filterName+"d");
+
+		//filter definition
+		f1.setAttribute("id", filterName);
+		f1.setAttribute("x", x);
+		f1.setAttribute("y", y);
+		
+		//blur definition
+		b1.setAttribute("in","SourceGraphic");
+		b1.setAttribute("stdDeviation", blurAmount);
+		
+		//set filter reference for observable
+		obs.setAttribute("filter","url(#"+filterName+")");
+			
+		if (!canvas.getElementById(filterName+"d")) {
+			f1.appendChild(b1);
+			d1.appendChild(f1);
+			canvas.appendChild(d1);
+		}
+		
+	}}$;
+
+}
+
+func renderShadow {
+
+para filterName, obsName, blurAmount, x, y, offset;
+
+	${{
+		var filterName = arguments[0];
+		var obsName = arguments[1];
+		var blurAmount = arguments[2];
+		var x = arguments[3];
+		var y = arguments[4];
+		var offset = arguments[5];
+		
+		var canvas = document.getElementById("svgcanvas");
+		var obs = canvas.getElementById(obsName);
+		
+		if (!canvas.getElementById(filterName+"d")) {
+		
+			var d1 = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+			var f1 = document.createElementNS("http://www.w3.org/2000/svg", "filter");
+			var b1 = document.createElementNS("http://www.w3.org/2000/svg", "feGaussianBlur");
+			var o1 = document.createElementNS("http://www.w3.org/2000/svg", "feOffset");
+			var i1 = document.createElementNS("http://www.w3.org/2000/svg", "feBlend");
+
+		} else {
+		
+			var d1 = canvas.getElementById(filterName+"d");
+			var f1 = d1.childNodes[0];
+			var o1 = f1.childNodes[0];
+			var b1 = f1.childNodes[1];
+			var i1 = f1.childNodes[2];
+		
+		}
+
+		//defs id
+		d1.setAttribute("id", filterName+"d");
+
+		//filter definition
+		f1.setAttribute("id", filterName);
+		f1.setAttribute("x", x);
+		f1.setAttribute("y", y);
+		
+		//offset definition
+		o1.setAttribute("result","offOut");
+		o1.setAttribute("in", "SourceAlpha");
+		o1.setAttribute("dx", offset);
+		o1.setAttribute("dy", offset);
+		
+		//blend definition
+		i1.setAttribute("in","SourceGraphic");
+		i1.setAttribute("in2","blurOut");
+		i1.setAttribute("mode","normal");
+		
+		//blur definition
+		b1.setAttribute("in","SourceGraphic");
+		b1.setAttribute("stdDeviation", blurAmount);
+		b1.setAttribute("result","blurOut");
+		b1.setAttribute("in","offOut");
+		
+		//set filter reference for observable
+		obs.setAttribute("filter","url(#"+filterName+")");
+			
+		if (!canvas.getElementById(filterName+"d")) {
+			f1.appendChild(o1);
+			f1.appendChild(b1);
+			f1.appendChild(i1);
+			d1.appendChild(f1);
+			canvas.appendChild(d1);
+		}
+		
+	}}$;
+
+}
+
+func applyGradient {
+	
+	para gradName, obsName, colour1, colour2, x, y;
+
+		${{
+		
+		var gradName = arguments[0];
+		var obsName = arguments[1];
+		var colour1 = arguments[2];
+		var colour2 = arguments[3];
+		var x = arguments[4];
+		var y = arguments[5];
+		
+		var canvas = document.getElementById("svgcanvas");
+		var obs = canvas.getElementById(obsName);
+		
+		if (!canvas.getElementById(gradName)) {
+		
+			var d1 = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+			var l1 = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+			var s1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+			var s2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+			var u1 = document.createElementNS("http://www.w3.org/2000/svg", "use");
+		
+		} else {
+		
+			var l1 = canvas.getElementById(gradName);
+			var s1 = d1.childNodes[0];
+			var s2 = d1.childNodes[1];
+		
+		}
+
+		//gtadientdefinition
+		l1.setAttribute("id", gradName);
+		l1.setAttribute("x1", "0%");
+		l1.setAttribute("y1", "0%");
+		l1.setAttribute("x2", "100%");
+		l1.setAttribute("y2", "100%");
+		
+		//stop1 def
+		s1.setAttribute("stop-color", colour1);
+		s1.setAttribute("offset","0%");
+		
+		//stop2 def
+		s2.setAttribute("stop-color", colour2);
+		s2.setAttribute("offset", "100%");
+		
+		//use def
+		u1.setAttribute("x",x);
+		u1.setAttribute("y",y);
+		u1.setAttribute("xlink:href","#"+obsName);
+		u1.setAttribute("fill","url(#"+gradName+")");
+
+			
+		if (!canvas.getElementById(gradName)) {
+		
+			canvas.innerHTML = '';
+		
+			l1.appendChild(s1);
+			l1.appendChild(s2);
+			d1.appendChild(obs);
+			d1.appendChild(l1);
+			canvas.appendChild(d1);
+			canvas.appendChild(u1);
+			
+		}
+		
+	}}$;
+
+}
+
